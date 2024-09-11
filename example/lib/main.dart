@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: Text('Text Validator Example')),
+        appBar: AppBar(title: const Text('Text Validator Example')),
         body: MyForm(),
       ),
     );
@@ -33,37 +33,43 @@ class _MyFormState extends State<MyForm> {
           children: [
             // Name field with required and max length validators
             TextFormField(
-              decoration: InputDecoration(labelText: 'Name'),
+              decoration: const InputDecoration(labelText: 'Name'),
               validator: (value) {
-                return TextValidators.required(value) ??
-                    TextValidators.maxLength(value, 50);
+                return TextValidators.required(value, customMessage: 'Name is required') ??
+                    TextValidators.maxLength(value, 50, customMessage: 'Name cannot be longer than 50 characters');
               },
             ),
             // Email field with email validator
             TextFormField(
-              decoration: InputDecoration(labelText: 'Email'),
-              validator: TextValidators.email,
+              decoration: const InputDecoration(labelText: 'Email'),
+              validator: (value) {
+                return TextValidators.email(value, customMessage: 'Please enter a valid email');
+              },
             ),
             // Currency field with currency validator
             TextFormField(
-              decoration: InputDecoration(labelText: 'Amount'),
-              validator: TextValidators.currency,
+              decoration: const InputDecoration(labelText: 'Amount'),
+              validator: (value) {
+                return TextValidators.currency(value, customMessage: 'Invalid amount format');
+              },
             ),
             // Phone number field with phone number validator
             TextFormField(
-              decoration: InputDecoration(labelText: 'Phone Number'),
-              validator: TextValidators.phoneNumber,
+              decoration: const InputDecoration(labelText: 'Phone Number'),
+              validator: (value) {
+                return TextValidators.phoneNumber(value, customMessage: 'Please enter a valid phone number');
+              },
             ),
             // Submit button
             ElevatedButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Processing Data')),
+                    const SnackBar(content: Text('Processing Data')),
                   );
                 }
               },
-              child: Text('Submit'),
+              child: const Text('Submit'),
             ),
           ],
         ),
