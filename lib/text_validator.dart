@@ -8,6 +8,14 @@ class TextValidators {
     }
     return null;
   }
+  // NoNumbersValidator - Ensures the value does not contain numeric characters
+  static String? noNumbers(String? value, {String message = 'Username cannot contain numbers'}) {
+    final RegExp noNumbersRegEx = RegExp(r'^[^\d]+$');
+    if (value == null || !noNumbersRegEx.hasMatch(value)) {
+      return message;
+    }
+    return null;
+  }
 
   // EmailValidator - Ensures the value is a validly formatted email address
   static String? email(String? value, {String message = 'Invalid email address'}) {

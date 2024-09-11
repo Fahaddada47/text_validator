@@ -85,4 +85,15 @@ void main() {
       expect(TextValidators.minNumber('7', 5), null);
     });
   });
+  group('NoNumbersValidator', () {
+    test('should return error when value contains numbers', () {
+      expect(TextValidators.noNumbers('user123'), 'Username cannot contain numbers');
+    });
+
+    test('should return null when value does not contain numbers', () {
+      expect(TextValidators.noNumbers('username'), null);
+    });
+  });
+
+
 }
